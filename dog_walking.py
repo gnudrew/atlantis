@@ -6,6 +6,10 @@ class Pets:
     def __init__(self, dogs):
         self.dogs = dogs
 
+    def walk(self):
+        for dog in self.dogs:
+            print(dog.walk())
+
 # Parent class
 class Dog:
 
@@ -30,6 +34,10 @@ class Dog:
     def eat(self):
         self.is_hungry = False
 
+    # instance method
+    def walk(self):
+        return "{} is walking!".format(self.name)
+
 # Child class (inherits from Dog class)
 class RussellTerrier(Dog):
     def run(self, speed):
@@ -42,34 +50,14 @@ class Bulldog(Dog):
 
 # Create the pack
 my_dogs = [
-    Bulldog("Elle Driver", 1, True),
-    RussellTerrier("Hattori Hanzo", 3, True),
-    Dog("Bill", 7, True)
+    Bulldog("Tom", 1, True),
+    RussellTerrier("Fletcher", 3, True),
+    Dog("Larry", 7, True)
 ]
 
 # Instantiate the pets class
 my_pets = Pets(my_dogs)
 
-# Output
-print("I have {} dogs in the pack.".format(len(my_pets.dogs)))
-for i in my_pets.dogs:
-    print("{} is {}.".format(i.name, i.age))
-print("And they're all {}s!".format(Dog.species))
-print('By extension Bulldogs are {}s and Russel Terriers are {}s too!'.format(Bulldog.species,RussellTerrier.species))
+# Walk the dog pack
+my_pets.walk()
 
-# Feed the dogs
-for i in my_pets.dogs:
-    i.eat()
-
-# Check if all dogs are fed.
-all_hungry = True
-all_fed = True
-for i in my_pets.dogs:
-    all_hungry = all_hungry and i.is_hungry
-    all_fed = all_fed and not i.is_hungry
-if all_hungry:
-    print("My dogs are hungry.")
-elif all_fed:
-    print("My dogs are not hungry.")
-else:
-    print("Mixed bag.")
