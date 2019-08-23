@@ -9,7 +9,7 @@ the probability the system enters deadlock state grows rapidly. In the current i
 there is no way out.
 
 The solution I came up with is to make one of the philosophers 'dyslexic', meaning he picks up his forks in reverse
-order: right first, left second. The idea is that this excludes the deadlock state (all philosophers holding a left
+order: right first, left second. The idea is that this excludes the deadlock state (all philosophers holding their first
 fork simultaneously) from the set of possible states. To see why, imagine four (non-dyslexic) philosophers
 simultaneously are holding their left fork. The fifth (dyslexic) philosopher will then have no right fork available
 to pick up; since he cannot pick up his first resource in the moment the other philosophers hold theirs, the deadlock
