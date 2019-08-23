@@ -11,8 +11,9 @@ there is no way out.
 The solution I came up with is to make one of the philosophers 'dyslexic', meaning he picks up his forks in reverse
 order: right first, left second. The idea is that this excludes the deadlock state (all philosophers holding a left
 fork simultaneously) from the set of possible states. To see why, imagine four (non-dyslexic) philosophers
-simultaneously are holding their left fork. Then, the fifth (dyslexic) philosopher will have no right fork available
-to pick up as his first resource lock; and so he will not pick up his left fork, making the deadlock state impossible.
+simultaneously are holding their left fork. The fifth (dyslexic) philosopher will then have no right fork available
+to pick up; since he cannot pick up his first resource in the moment the other philosophers hold theirs, the deadlock
+cannot be reached and has been excluded from the set of possible states.
 
 Implementation:
 Added new eat_dyslexic() methods in Plate class to accommodate the one philosopher's dyslexia.
