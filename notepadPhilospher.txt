@@ -1,0 +1,46 @@
+Solution:
+
+Deadlock happens if and only if the 'deadlock state' occurs: all philosophers holding their left fork simultaneously.
+Once in this state, all philosophers will wait indefinitely to pick up their right fork and the program hangs. If a
+thread (philosopher) is able to evaluate its task quickly enough (finish the meal) and return the resources it locked
+(forks), then deadlock is less likely to happen, and may rarely ever happen. However, as long as the 'deadlock state'
+is in the pool of possible states, we're playing a numbers game. As MEALS and MEAL_CONSUMPTION_TIME increase enough,
+the probability the system enters deadlock state grows rapidly. In the current implementation, once deadlock is entered
+there is no way out.
+
+The solution I came up with is to make one of the philosophers 'dyslexic', meaning he picks up his forks in reverse
+order: right first, left second. The idea is that this excludes the deadlock state (all philosophers holding a left
+fork simultaneously) from the set of possible states. To see why, imagine four (non-dyslexic) philosophers
+simultaneously are holding their left fork. Then, the fifth (dyslexic) philosopher will have no right fork available
+to pick up as his first resource lock; and so he will not pick up his left fork, making the deadlock state impossible.
+
+Implementation:
+Added new eat_dyslexic() methods in Plate class to accommodate the one philosopher's dyslexia.
+Added if-else condition in Philosopher class to find the one philosopher with dyslexia (chosen arbitrarily to be
+philosopher number 1).
+-->sidenote: shouldn't we have the sleep() line also under eat_v2(), to spend time consuming the meal? I commented in.
+
+Discussion:
+Three standard solution to the Dining Philosophers Problem in Computer Science are:
+ - Resource Hierarchy solution
+ - Arbitrator solution
+ - Chandy/Misra solution
+
+(My solution is a form of Resources Hierarchy)
+
+In the Resources Hierarchy solution, we assume the list of required resources is already known. Then, we can assign
+an order to the resources (forks numbered 1 to 5, for example). The idea is the deadlock state is avoided by requiring
+philosophers pick up their forks in order from lowest to highest. This excludes the deadlock state because, in the case
+that four philosophers are simultaneously holding their first (lowest) fork, the fifth philosopher will never have
+access to his lowest fork.
+
+In the Arbitrator solution, we introduce a waiter to govern the philosophers' fork use. A philosopher must ask the
+waiter before picking up a fork. The waiter personally ensures deadlock is never reached by permitting only one
+philosopher at a time to pick up forks, till he holds both forks. Putting down forks is always ok. This method has the
+weakness of reduced efficiency, especially in the case of tasks that are well-suited to HPC (highly parallel computing).
+
+In the Chandy/Misra solution, we extend beyond just the two forks to situations where the philosophers can compete over
+an arbitrary number of shared resources. The idea is that philosophers are assigned an order (low to high), such that
+the lowest number philosopher wins the resource in the initial disbursement. Then, the philosophers talk to each other
+and use an algorithm involving "dirty" and "clean" forks to know when its ok to hand over the resource. The method
+avoids the need to introduce an external 'waiter' entity, and solves some other problems, like minimizing 'starvation'.
