@@ -3,7 +3,9 @@ An example of the deadlock-philosopher problem we talked about.  Needs fixing!
 
 8/23/2019, ASR
 Solution: Let one of the philosophers be dyslexic. He always picks up his right fork first, then his left.
-See "notepadPhilosopher.txt" for further notes and discussion of my thought process.
+--> See "notepadPhilosopher.txt" for further notes and discussion of my thought process.
+--> See "philosopher_test.txt" for the results of some test runs. The fixed version didn't hang so far!
+
 """
 
 
