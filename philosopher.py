@@ -6,6 +6,10 @@ Solution: Let one of the philosophers be dyslexic. He always picks up his right 
 --> See "notepadPhilosopher.txt" for further notes and discussion of my thought process.
 --> See "philosopher_test.txt" for the results of some test runs. The fixed version didn't hang so far!
 
+8/27/2019, ASR
+Optimize Solution: Moarrr dyslexia! Make every other philosopher dyslexic (Alternating Dyslexic Philosophers solution)
+--> See "Resource Hierarchy Optimization.pdf" for more detail on my improved solution.
+
 """
 
 
@@ -17,7 +21,7 @@ from threading import Thread
 from time import sleep, time
 
 SEATS_PER_TABLE = 5
-MEALS = 1000                 # Hmmm, why does it never seem to end when I
+MEALS = 100                 # Hmmm, why does it never seem to end when I
                             # increase this number?  When I make it smaller, it
                             # the program seems to terminate quicker...
 MEAL_CONSUMPTION_TIME = 0.01   # Hmmm, why does it never seem to end when I
@@ -44,12 +48,12 @@ class Plate(object):
         # but it is essentially equivalent to eat_v1()
         with self.left:
             with self.right:
-                #sleep(MEAL_CONSUMPTION_TIME)  # we should spend time eating here, too, right?
+                sleep(MEAL_CONSUMPTION_TIME)
                 self.meals_eaten += 1
 
 
     def eat_v1_dyslexic(self):
-    # Used only and always by the fifth philosopher, who is dyslexic. He takes right fork first, then left.
+    # Half the philosophers are dyslexic. They take the right fork first, then left.
         self.right.acquire()
         self.left.acquire()
         sleep(MEAL_CONSUMPTION_TIME)
@@ -58,10 +62,10 @@ class Plate(object):
         self.right.release()
 
     def eat_v2_dyslexic(self):
-    # Used only and always by the fifth philosopher, who is dyslexic. He takes right fork first, then left.
+    # Half the philosophers are dyslexic. They take the right fork first, then left.
         with self.right:
             with self.left:
-                #sleep(MEAL_CONSUMPTION_TIME) # we should spend time eating here, too, right?
+                sleep(MEAL_CONSUMPTION_TIME)
                 self.meals_eaten += 1
 
 class Philosoper(Thread):
@@ -71,8 +75,8 @@ class Philosoper(Thread):
         self.plate = None
 
     def run(self):
-        if self.number == 1:
-            # philosopher 1 is dyslexic
+        if self.number % 2 == 1:
+            # every other philosopher is dyslexic.
             for meal in range(MEALS//2):
                 self.plate.eat_v1_dyslexic()
                 self.plate.eat_v2_dyslexic()
