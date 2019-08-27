@@ -8,7 +8,7 @@ Solution: Let one of the philosophers be dyslexic. He always picks up his right 
 
 8/27/2019, ASR
 Optimize Solution: Moarrr dyslexia! Make every other philosopher dyslexic (Alternating Dyslexic Philosophers solution)
---> See "Resource Hierarchy Optimization.pdf" for more detail on my improved solution.
+--> See "Resource Hierarchy Optimization.pdf" for the idea here on my improved solution.
 
 """
 
