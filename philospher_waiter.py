@@ -58,11 +58,11 @@ class Philosoper(Thread):
     def run(self):
         for meal in range(MEALS//2):
 
-            # Get index for left fork and right fork before asking waiter
-            n = self.number # see how Table class sets the table; eater index matches to fork index and index + 1.
+            # Get index for left fork and right fork before asking the waiter (let's name him Jeeves! :D)
+            n = self.number # look in Table class sets the table; eater index goes with fork index and index + 1.
             fork1_index = n
-            length = len(self.waiter._seats)
-            if n + 1 == length:
+            #length = len(self.waiter._seats)
+            if n + 1 == SEATS_PER_TABLE:
                 fork2_index = 0  # wrap around!
             else:
                 fork2_index = n + 1
@@ -70,6 +70,7 @@ class Philosoper(Thread):
             # Ask Jeeves... and keep asking till he says yes.
             while self.waiter.ask(fork1_index, fork2_index) != 'yes':
                 print("Philosopher "+self.number+" asked Jeeves and got a 'NO'.")
+
             self.plate.eat_v1()
             self.plate.eat_v2()
 
@@ -83,17 +84,15 @@ class Waiter:
         self._seats = seats
         self._forks = forks
         self._plates = plates
-        # initialize an asking queue
+        # initialize the queue to.. Ask Jeeves (TM)
         self._queue = []
 
     def makeForkStatusList(self):
-        # how many forks?
-        n = len(self._forks)
         # initially set all forks status to 0, "not in use"
-        self._forkStatus = zip(self._forks, [0]*n)
+        self._forkStatus = zip(self._forks, [0]*SEATS_PER_TABLE)
 
     def ask(self, fork1_index, fork2_index):
-        # Philosopher at a given plate asks the waiter to pick up his forks.
+        # Philosopher asks the waiter to pick up his forks, passing in the fork indices.
         # Waiter checks his list.
         #   If fork1 and fork2 are available, he gives this philosopher 'yes' and changes these forks status to 1, "in use".
         #   If they aren't both available, he gives this philosopher a 'no'.
