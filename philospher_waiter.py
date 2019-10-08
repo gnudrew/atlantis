@@ -89,22 +89,21 @@ class Waiter:
 
     def makeForkStatusList(self):
         # initially set all forks status to 0, "not in use"
-        self._forkStatus = zip(self._forks, [0]*SEATS_PER_TABLE)
+        self._forkStatus = [
+            [fork,0] for fork in range(self._forks)
+            ]
 
     def ask(self, fork1_index, fork2_index):
         # Philosopher asks the waiter to pick up his forks, passing in the fork indices.
         # Waiter checks his list.
         #   If fork1 and fork2 are available, he gives this philosopher 'yes' and changes these forks status to 1, "in use".
         #   If they aren't both available, he gives this philosopher a 'no'.
-        print('f1:'+fork1_index)
-        print('f2:'+fork2_index)
+        print('f1: '+str(fork1_index))
+        print('f2: '+str(fork2_index))
         if self._forkStatus[fork1_index][1] == 0 and self._forkStatus[fork2_index][1] == 0:
             # give the philosopher a 'yes'
             print('YES')
-            return 'yes'
-            # update fork status to in-use
             print('Before marked in use:')
-            # Why does the program not seem be reading out to print the forkStatus values??
             print(self._forkStatus[fork1_index][1])
             print(self._forkStatus[fork2_index][1])
             self._forkStatus[fork1_index][1] = 1
@@ -112,6 +111,8 @@ class Waiter:
             print('After marked in use:')
             print(self._forkStatus[fork1_index][1])
             print(self._forkStatus[fork2_index][1])
+            # update fork status to in-use
+            return 'yes'
         else:
             # give a 'no'
             print('NO')
