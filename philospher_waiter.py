@@ -58,7 +58,7 @@ class Philosoper(Thread):
     def run(self):
         for meal in range(MEALS//2):
 
-            # Get index for left fork and right fork before asking Jeeves
+            # Get index for left fork and right fork before asking waiter
             n = self.number # see how Table class sets the table; eater index matches to fork index and index + 1.
             fork1_index = n
             length = len(self.waiter._seats)
