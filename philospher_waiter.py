@@ -68,8 +68,8 @@ class Philosoper(Thread):
                 fork2_index = n + 1
 
             # Ask Jeeves... and keep asking till he says yes.
-            while self.waiter.ask(fork1_index, fork2_index) != 'yes':
-                print("Philosopher "+self.number+" asked Jeeves and got a 'NO'.")
+            #while self.waiter.ask(fork1_index, fork2_index) != 'yes':
+            #    print("Philosopher "+self.number+" asked Jeeves and got a 'NO'.")
 
             self.plate.eat_v1()
             self.plate.eat_v2()
@@ -79,18 +79,24 @@ class Waiter:
         # Upon hire, the waiter is given a list of seats, forks, and plates to track.
         # The waiter keeps a list of which forks are available. 0 for not-in-use. 1 for in-use.
         # The waiter keeps a list of his current answer ('yes' or 'no') to each philosopher.
-        #self._forksStatus = [0 for n in range(seats)]
-        #self._askStatus = ['no' for n in range(seats)]
         self._seats = seats
         self._forks = forks
         self._plates = plates
         # initialize the queue to.. Ask Jeeves (TM)
-        self._queue = []
+        #self._queue = []
+        # Endow Jeeves with attention (as a lock or "fork")
+        self._attention = Fork()
+
+    def __enter__(self):
+        self._attention.acquire()
+
+    def __exit__(self):
+        self._attention.release()
 
     def makeForkStatusList(self):
         # initially set all forks status to 0, "not in use"
         self._forkStatus = [
-            [fork,0] for fork in range(self._forks)
+            [fork, 0] for fork in range(self._forks)
             ]
 
     def ask(self, fork1_index, fork2_index):
