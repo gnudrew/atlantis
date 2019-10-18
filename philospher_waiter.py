@@ -67,9 +67,13 @@ class Philosoper(Thread):
             else:
                 fork2_index = n + 1
 
-            # Ask Jeeves... and keep asking till he says yes.
-            #while self.waiter.ask(fork1_index, fork2_index) != 'yes':
-            #    print("Philosopher "+self.number+" asked Jeeves and got a 'NO'.")
+            # Ask Jeeves... using a Lock for his attention
+              #while self.waiter.ask(fork1_index, fork2_index) != 'yes':
+              #    print("Philosopher "+self.number+" asked Jeeves and got a 'NO'.")
+            with self.waiter._attention:
+                can_i = self.waiter.ask(fork1_index, fork2_index)
+                #acquire forks()
+                #release attention
 
             self.plate.eat_v1()
             self.plate.eat_v2()
