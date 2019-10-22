@@ -20,12 +20,13 @@ from threading import Lock as Fork
 from threading import Thread
 from time import sleep, time
 
-SEATS_PER_TABLE = 5
-MEALS = 100                 # Hmmm, why does it never seem to end when I
-                            # increase this number?  When I make it smaller, it
-                            # the program seems to terminate quicker...
-MEAL_CONSUMPTION_TIME = 0.01   # Hmmm, why does it never seem to end when I
-                            # increase this number to 0.1?
+if __name__ == '__main__':
+    SEATS_PER_TABLE = 5
+    MEALS = 100                 # Hmmm, why does it never seem to end when I
+                                # increase this number?  When I make it smaller, it
+                                # the program seems to terminate quicker...
+    MEAL_CONSUMPTION_TIME = 0.01   # Hmmm, why does it never seem to end when I
+                                # increase this number to 0.1?
 
 class Plate(object):
     def __init__(self, left_fork=None, right_fork=None,):
@@ -127,7 +128,8 @@ class Table(object):
 
         print("Successfully eating {} meals in {} seconds".format(MEALS, time()-start_time))
 
-table = Table(SEATS_PER_TABLE)
-table.go()
+if __name__ == '__main__':
+    table = Table(SEATS_PER_TABLE)
+    table.go()
 
 
