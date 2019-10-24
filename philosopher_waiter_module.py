@@ -16,10 +16,6 @@ from threading import Lock as Fork
 from threading import Thread
 from time import sleep, time
 
-seats_per_table = 5
-meals = 100
-meal_consumption_time = 0.01
-
 class Plate:
     def __init__(self, left_fork=None, right_fork=None,):
         self.left = left_fork
@@ -170,5 +166,3 @@ class Table:
         print(f"Successfully eating {meals} meals of {meal_consumption_time}s size in {delta_t} seconds")
         return delta_t
 
-table = Table(seats_per_table)
-table.go()
