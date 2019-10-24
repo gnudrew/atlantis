@@ -44,6 +44,12 @@ class database:
     def buildMatrix(self):
         pass
 
+    def plotData(self):
+        # --> get average and variance on t for each (x,y)
+        # --> x-y-t surface plot of average
+        # --> x-y-t surface plot of variance
+        pass
+
 
 ### Run some benchmarks and add them to the database ###
 # Initialize the database:
