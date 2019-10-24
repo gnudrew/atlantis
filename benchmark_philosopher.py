@@ -62,3 +62,12 @@ for meals in inp_meals:
 # Vary MEALS @ MEAL_CONSUMPTION_TIME = 0.01
 
 # Vary MEALS @ MEAL_CONSUMPTION_TIME = 0.01
+
+# Vary MEALS and MEAL_CONSUMPTION_TIME
+seats_per_table = 5
+inp_meals = [1, 10, 50, 100, 500, 1000]
+inp_meal_consumption_time = [0.000, 0.005, 0.010, 0.020]
+for x in inp_meals:
+    for y in inp_meal_consumption_time:
+        t = db.Bench(seats_per_table, x, y)
+        db.addDatum(x, y, t)
