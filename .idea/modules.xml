@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C://atlantis/../../Atlantis/.idea/atlantis.iml" filepath="C://atlantis/../../Atlantis/.idea/atlantis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/atlantis.iml" filepath="$PROJECT_DIR$/.idea/atlantis.iml" />
     </modules>
   </component>
 </project>

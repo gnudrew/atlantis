@@ -7,7 +7,11 @@ Run benchmarks on the philosopher.py method.
 from threading import Lock as Fork
 from threading import Thread
 from time import sleep, time
-import philosopher_waiter_module
+
+from philosopher_waiter_module import Table
+from philosopher_waiter_module import Plate
+from philosopher_waiter_module import Philosoper
+from philosopher_waiter_module import Waiter 
 
 class database:
     # store our benchmark run data here
@@ -23,16 +27,10 @@ class database:
     #
     def __init__(self):
         self.data = []
-        # raw data as a list of 3-tuples
-
-    def Bench(self, seats_per_table, meals, meal_consumption_time,):
-        # execute the code with a set of inputs and return the run time.
-        table = Table(seats_per_table)
-        t = table.go()
-        return t
+        # raw data is a list of 3-tuples
 
     def addDatum(self, datum):
-        # must be a 3-tuple
+        # check datum is a 3-tuple
         if isinstance(datum, tuple):
             if len(datum) == 3:
                 self.data.append(datum)
@@ -40,6 +38,12 @@ class database:
                 print("ERROR: Datum is not length 3. Use format (meals, meal_consumption_time, run_time)")
         else:
             print("ERROR: Datum is not a tuple. Use format (meals, meal_consumption_time, run_time)")
+
+    def Bench(self, seats_per_table, meals, meal_consumption_time,):
+        # execute the code with a set of inputs and return the run time.
+        table = Table(seats_per_table, meals, meal_consumption_time)
+        t = table.go()
+        return t
 
     def buildMatrix(self):
         pass
@@ -56,24 +60,41 @@ class database:
 db = database()
 
 # Vary MEALS @ MEAL_CONSUMPTION_TIME = 0.00
-# static vars:
-seats_per_table = 5
-meal_consumption_time = 0.01
-# varying:
-inp_meals = [1,10,50,100,200,500,1000]
-for meals in inp_meals:
-    run_time = db.Bench(seats_per_table, meals, meal_consumption_time)
-    db.addDatum(meals, meal_consumption_time, run_time)
-
-# Vary MEALS @ MEAL_CONSUMPTION_TIME = 0.01
-
-# Vary MEALS @ MEAL_CONSUMPTION_TIME = 0.01
+toggle = 'off' # turn this chunk ON or OFF
+if toggle == 'on':
+    # static vars:
+    seats_per_table = 5
+    meal_consumption_time = 0.01
+    # varying:
+    inp_meals = [1,10,50]
+    for meals in inp_meals:
+        run_time = db.Bench(seats_per_table, meals, meal_consumption_time)
+        newDatum = (meals, meal_consumption_time, run_time)
+        db.addDatum(newDatum)
+    #write to file
+    file1 = open("benchmark_data_philosopher_waiter.txt", "a")
+    write_data = [
+        str(db.data[i])+"\n" for i in range(len(db.data))
+    ]
+    file1.writelines(write_data)
+    file1.close()
 
 # Vary MEALS and MEAL_CONSUMPTION_TIME
-seats_per_table = 5
-inp_meals = [1, 10, 50, 100, 500, 1000]
-inp_meal_consumption_time = [0.000, 0.005, 0.010, 0.020]
-for x in inp_meals:
-    for y in inp_meal_consumption_time:
-        t = db.Bench(seats_per_table, x, y)
-        db.addDatum(x, y, t)
+toggle = 'on'
+if toggle == 'on':
+    for i in range(30): # a statistical sampling!!
+        seats_per_table = 5
+        inp_meals = [1, 10, 50, 100]
+        inp_meal_consumption_time = [0.000, 0.005, 0.010]
+        for x in inp_meals:
+            for y in inp_meal_consumption_time:
+                t = db.Bench(seats_per_table, x, y)
+                newDatum = (x, y, t)
+                db.addDatum(newDatum)
+    #write to file
+    file1 = open("benchmark_data_philosopher_waiter.txt", "a")
+    write_data = [
+        str(db.data[i])+"\n" for i in range(len(db.data))
+    ]
+    file1.writelines(write_data)
+    file1.close()

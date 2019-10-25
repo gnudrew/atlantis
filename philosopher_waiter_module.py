@@ -17,10 +17,15 @@ from threading import Thread
 from time import sleep, time
 
 class Plate:
-    def __init__(self, left_fork=None, right_fork=None,):
+    def __init__(self, seats_per_table, meals, meal_consumption_time, left_fork=None, right_fork=None,):
         self.left = left_fork
         self.right = right_fork
         self.meals_eaten = 0
+
+        self.seats_per_table = seats_per_table
+        self.meals = meals
+        self.meal_consumption_time = meal_consumption_time
+
 
     def eat(self, meal_consumption_time):
         sleep(meal_consumption_time)
@@ -34,6 +39,10 @@ class Philosoper(Thread):
         self.waiter = waiter
 
     def run(self):
+        meals = self.plate.meals
+        meal_consumption_time = self.plate.meal_consumption_time
+        seats_per_table = self.plate.seats_per_table
+
         for meal in range(meals):
             # Get index for left fork and right fork before asking the waiter
             # eater index goes with fork index and index - 1 (see Table class setting)
@@ -113,7 +122,11 @@ class Waiter:
             return 'no'
 
 class Table:
-    def __init__(self, seats):
+    def __init__(self, seats, meals, meal_consumption_time):
+
+        self.meals = meals
+        self.meal_consumption_time = meal_consumption_time
+        self.seats_per_table = seats
 
         # Create seats with philosophers sitting in them
         self._seats = [Philosoper(n) for n in range(seats)]
@@ -125,7 +138,7 @@ class Table:
         ]
         # Create the plates
         self._plates = [
-            Plate()
+            Plate(self.seats_per_table, self.meals, self.meal_consumption_time)
             for seat in self._seats
         ]
 
@@ -163,6 +176,6 @@ class Table:
 
         # how long did it take?
         delta_t = end_time - start_time
-        print(f"Successfully eating {meals} meals of {meal_consumption_time}s size in {delta_t} seconds")
+        print(f"Successfully eating {self.meals} meals of {self.meal_consumption_time}s size in {delta_t} seconds")
         return delta_t
 
