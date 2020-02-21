@@ -13,6 +13,10 @@ from philosopher_waiter_module import Plate
 from philosopher_waiter_module import Philosoper
 from philosopher_waiter_module import Waiter 
 
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
 class database:
     # store our benchmark run data here
     # Goal: 2D Matrix (x,y,z) = (meals, meal_consumption_time, run_time)
@@ -46,9 +50,11 @@ class database:
         return t
 
     def buildMatrix(self):
+        # USE PANDAS FOR THIS
         pass
 
     def plotData(self):
+        # IMPORT MATPLOTLIB and/or SCIPLOTLIB for this.
         # --> get average and variance on t for each (x,y)
         # --> x-y-t surface plot of average
         # --> x-y-t surface plot of variance
@@ -58,6 +64,22 @@ class database:
 ### Run some benchmarks and add them to the database ###
 # Initialize the database:
 db = database()
+
+# Do some Plotting and Analyzing stuff
+toggle = 'on'
+if toggle == 'on':
+    # make the pandas data frame
+    df = pd.read_csv('data.txt')
+    x = df['meals']
+    y = df['meal_time']
+    z = df['run_time']
+    
+    #do some plotting-- scatter plot to start EZ
+    #                -- stacked line plots for time vs. x, varying y
+    #                -- stacked line plots for time vs. y, varying x
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    Axes3D.scatter(x,y,z)
 
 # Vary MEALS @ MEAL_CONSUMPTION_TIME = 0.00
 toggle = 'off' # turn this chunk ON or OFF
@@ -80,7 +102,7 @@ if toggle == 'on':
     file1.close()
 
 # Vary MEALS and MEAL_CONSUMPTION_TIME
-toggle = 'on'
+toggle = 'off'
 if toggle == 'on':
     for i in range(30): # a statistical sampling!!
         seats_per_table = 5
