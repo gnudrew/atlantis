@@ -14,10 +14,10 @@ f1.close()
 
 a = [
     i for i in data
-    if ( i != '(' and i != ')')
+    if (i != '(' and i != ')')
 ]
 output = ''.join(a)
-output = 'meals,meal_time,run_time\n'+output
+output = 'meals,meal_time,run_time\n'+output #insert header line at top
 
 f2 = open(newfilename, "w")
 f2.write(output)
