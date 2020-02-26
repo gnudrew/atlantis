@@ -5,13 +5,9 @@ import pandas as pd
 df = pd.read_csv("data.txt")
 # the columns are 'meals', 'meal_time', and 'run_time'
 
-# x = df['meals']
-# y = df['meal_time']
-# z = df['run_time']
-
 df = df.sort_values(['meals','meal_time']).reset_index()
 df_unq = df.groupby(['meals','meal_time']).size().reset_index(name='Freq')
-# ^ is table of unique pairs (meal, meal_time) and how many
+# ^ is table of unique pairs (meal, meal_time) and frequency per pair
 #print(df)
 #print(df_unq)
 
@@ -38,9 +34,11 @@ df_unq['std_run_time'] = std
 
 # print(df_unq)
 
+#########################
 #### DO THE PLOTTING ####
+#########################
 
-# Plot meal_time vs run_time, for different meals curves
+# Plot run_time vs meal_time, for different meals curves
 length = len(df_unq.index)
 x = df_unq.loc[0:3,'meal_time']
 ab = zip(range(0,length,4),range(3,length,4))
@@ -61,10 +59,10 @@ params = [
 
 fig = plt.figure()
 
-for y, ystd, param in zip(ys,ystds,params):
+for y, ystd, param in zip(ys, ystds, params):
     plt.errorbar(x, y, yerr=ystd, uplims=True, lolims=True, label=param)
 
 plt.legend(loc='lower right')
 plt.show()
 
-# Plot meals vs run_time, for different meal_time curves
+# Plot run_time vs meals, for different meal_time curves
