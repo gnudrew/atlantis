@@ -2,7 +2,7 @@ The app will do a voice activated search for a walking route that meets a stated
 
 Features:
 - mostly a backend/algorithm project
-- interfaces with Siri 
+- interfaces with Siri (https://developer.apple.com/siri/)
 - interfaces with Google Maps or Apple Maps
 - RouteOption1: there and back again
 - RouteOption2: loop route
