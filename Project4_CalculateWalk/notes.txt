@@ -1,0 +1,31 @@
+The app will do a voice activated search for a walking route that meets a stated time or distance requirement. For example, "Hey Siri, find a 30 minute walking route"
+
+Features:
+- mostly a backend/algorithm project
+- interfaces with Siri 
+- interfaces with Google Maps or Apple Maps
+- RouteOption1: there and back again
+- RouteOption2: loop route
+- uses an algorithm to create the route
+
+Research:
+- does an app or algirthm already exist for this?
+    https://www.verywellfit.com/walking-route-planners-and-apps-3436495
+    - sites: 
+        - G-Map Pedometer, 
+        - Plotaroute.com, 
+        - MapMyWalk, 
+        - WalkJogRun, 
+        - ViaMichelin, 
+        - LiveTrekker
+    - walking direction algorithms: 
+        - Google Maps with walking directions: suggests walking directions when you input start, intermediate, and end destinations. I'd say this is a point-based system. I could work with this, but i'd rather come up with a string or loop-based algorithm. imagine a rubberband attached to a pin at one point, then you have numerous ways to lace it thru a grid.
+            - sidenote, there may not be sidewalks or pedestrian paths on all roads. I'd say i should use a database that includes all walkable paths.
+        - iOS Maps App: similar to Google maps. Siri can give you the result by voice comamand, "get walking directions to X."
+    - another need is people who want to plan a group walk, such as for a charity event. These routes must stick to paths that are wide enough to accomodate many people as well as have safe road crossings. I'd say I'm catering to the niche of an individual who just wants to "go on a 10 minute walk" with minimal effort needed to start it. Tiny Habbits method-- minimize barrier to entry.
+- look more at arcGIS. Has some built-in analyses with maps
+https://www.esri.com/arcgis-blog/products/arcgis-online/analytics/make-a-walk-time-map/
+https://developers.arcgis.com/labs/what-is-arcgis/
+https://www.esri.com/en-us/arcgis/products/navigator-for-arcgis/overview
+- Can Siri already do this?
+https://www.cnet.com/how-to/the-complete-list-of-siri-commands/
