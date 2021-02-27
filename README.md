@@ -1,11 +1,10 @@
 # atlantis
 
-Practice space for gnudrew on OOP and Python with feedback and comments from JLQ:
-Concepts: 
-*race conditions
-*deadlocks
-*locks
-*semiphores
+Practice space for OOP in Python with feedback and comments from JLQ, including:
+* race conditions
+* deadlocks
+* locks
+* semiphores
 
 
 
